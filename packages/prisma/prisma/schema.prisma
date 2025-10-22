@@ -15,21 +15,24 @@ datasource db {
 }
 
 model User {
-  id            String    @unique   @default(uuid())
-  type          UserCategory
-  fullName      String
-  username      String    @unique
-  email         String    @unique
-  password      String    @unique
-  submissions   Submission[]
+  id                String    @unique   @default(uuid())
+  type              UserCategory
+  fullName          String
+  username          String    @unique
+  email             String    @unique
+  password          String    @unique
+  submissions       Submission[]
+  createdProblems   Problem[]
 }
 
 model Problem {
   id            String    @unique   @default(uuid())
   title         String
   description   String
+  authorId      String
   testCases     TestCase[]
   submissions   Submission[]
+  author        User      @relation(fields: [authorId], references: [id])
 }
 
 model TestCase {
