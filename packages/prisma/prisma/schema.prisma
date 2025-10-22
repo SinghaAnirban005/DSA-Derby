@@ -28,8 +28,16 @@ model Problem {
   id            String    @unique   @default(uuid())
   title         String
   description   String
-  testCases     String[]
+  testCases     TestCase[]
   submissions   Submission[]
+}
+
+model TestCase {
+  id              String   @unique() @default(uuid())
+  input           String
+  expectedOutput  String
+  problem         Problem   @relation(fields: [problemId], references: [id])
+  problemId       String
 }
 
 model Submission {
