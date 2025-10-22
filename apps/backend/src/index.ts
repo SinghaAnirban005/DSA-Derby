@@ -2,6 +2,9 @@ import express, { Express } from "express"
 import cors from "cors"
 import AuthRouter from "./Controllers/Auth.js"
 import AdminRouter from "./Controllers/Admin/index.js"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const app: Express = express()
 

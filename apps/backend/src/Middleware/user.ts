@@ -4,7 +4,7 @@ import { prismaClient } from "prisma/client"
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 
-export const authenticateAdmin = async(req: Request, res: Response, next: NextFunction) => {
+export const authenticateUser = async(req: Request, res: Response, next: NextFunction) => {
     const header = req.headers['authorization'] || ''
 
     const token = header.split('Bearer ')[1]

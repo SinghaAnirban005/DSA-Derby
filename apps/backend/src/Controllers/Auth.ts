@@ -3,10 +3,9 @@ import { Request, Response } from "express";
 import { prismaClient } from "prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import { authenticateUser } from "../Middleware/user.js";
 
 const router: Router = Router()
-
-const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
 
 router.post("/signup", async(req: Request, res: Response) => {
     const { fullName, username, email, password, type } = req.body
@@ -88,6 +87,8 @@ router.post("/login", async(req: Request, res: Response) => {
         return
     }
 
+    const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY
+
     const token = await jwt.sign({
         username: user.username,
         email: user.email,
@@ -102,7 +103,7 @@ router.post("/login", async(req: Request, res: Response) => {
     return
 })
 
-router.post("/logout", (req: Request, res: Response) => {
+router.post("/logout", authenticateUser, (req: Request, res: Response) => {
     
 })
 

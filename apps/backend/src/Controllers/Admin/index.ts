@@ -34,16 +34,11 @@ router.post('/add-problem',authenticateAdmin, async(req, res) => {
                         equals: title.substring(0, 20),
                         mode: 'insensitive'
                     }},
-                    {
-                        testCases: {
-                            
-                        }
-                    }
                 ]
             }
         })
 
-        if(!duplicates){
+        if(duplicates){
             res.status(400).json({
                 message: "Duplicates found"
             })
@@ -58,7 +53,9 @@ router.post('/add-problem',authenticateAdmin, async(req, res) => {
                 authorId: adminId,
                 title: title.trim(),
                 description: description.trim(),
-                testCases: testCases
+                testCases: {
+                    create: testCases
+                },
             }
         })
         
